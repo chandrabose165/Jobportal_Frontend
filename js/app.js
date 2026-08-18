@@ -96,3 +96,17 @@ function formDate(value) {
     year: "numeric",
   });
 }
+
+// showing the page function
+const pages = document.querySelectorAll(".page");
+function getRoute() {
+  return location.hash.replace("/^#/", "") || "/";
+}
+function showpages(pageName) {
+  pages.forEach(() => {
+    show(page, page.id === "page-" + pageName);
+  });
+}
+async function rebder() {
+  const route = getRoute();
+}
