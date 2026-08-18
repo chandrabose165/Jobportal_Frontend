@@ -1,1272 +1,1952 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JobPortal</title>
-    <link rel="stylesheet" href="Style.css">
-</head>
+    <link rel="stylesheet" href="CSS/Style.css" />
+  </head>
 
-<body>
+  <body>
     <div id="toast" class="toast" aria-live="polite"></div>
     <header class="site-header">
-        <div class="container nav">
-            <a class="brand" href="#/">JobPortal</a>
-            <nav class="nav-links">
-                <a data-nav href="#/jobs">Find Jobs</a><a data-nav class="jobseeker-only" href="#/my-applications">My
-                    Applications</a><a data-nav class="recruiter-only" href="#/my-jobs">My Jobs</a><a data-nav
-                    class="recruiter-only" href="#/post-job">Post Job</a><a data-nav class="admin-only"
-                    href="#/admin/users">Manage Users</a>
-            </nav>
-            <div class="nav-actions"><a id="nav-login" class="btn btn-light btn-small" href="#/login">Login</a><a
-                    id="nav-register" class="btn btn-primary btn-small" href="#/register">Register</a><a
-                    id="nav-dashboard" class="btn btn-light btn-small hidden" href="#/dashboard">Dashboard</a><button
-                    id="nav-logout" class="btn btn-danger btn-small hidden" type="button">Logout</button></div>
+      <div class="container nav">
+        <a class="brand" href="#/">JobPortal</a>
+        <nav class="nav-links">
+          <a data-nav href="#/findjobs">Find Jobs</a
+          ><a data-nav class="jobseeker-only" href="#/my-applications"
+            >My Applications</a
+          ><a data-nav class="recruiter-only" href="#/my-jobs">My Jobs</a
+          ><a data-nav class="recruiter-only" href="#/post-job">Post Job</a
+          ><a data-nav class="admin-only" href="#/admin/users">Manage Users</a>
+        </nav>
+        <div class="nav-actions">
+          <a id="nav-login" class="btn btn-light btn-small" href="#/login"
+            >Login</a
+          ><a
+            id="nav-register"
+            class="btn btn-primary btn-small"
+            href="#/register"
+            >Register</a
+          ><a
+            id="nav-dashboard"
+            class="btn btn-light btn-small hidden"
+            href="#/dashboard"
+            >Dashboard</a
+          ><button
+            id="nav-logout"
+            class="btn btn-danger btn-small hidden"
+            type="button"
+          >
+            Logout
+          </button>
         </div>
+      </div>
     </header>
     <main class="container main">
-        <section id="page-home" class="page">
-            <div class="hero">
-                <div><span class="eyebrow">YOUR NEXT OPPORTUNITY</span>
-                    <h1>Find a job that fits your skills.</h1>
-                    <p>Discover jobs, match your skills, apply with your resume, and track every application in one
-                        place.</p>
-                    <div class="hero-actions"><a class="btn btn-primary" href="#/jobs">Browse Jobs</a><a
-                            class="btn btn-light" href="#/register">Create Account</a></div>
-                </div>
-                <div class="hero-card">
-                    <div class="hero-stat"><b>Smart matching</b><span>See how closely your skills match each job.</span>
-                    </div>
-                    <div class="hero-stat"><b>Easy applications</b><span>Upload a resume and apply in minutes.</span>
-                    </div>
-                    <div class="hero-stat"><b>Recruiter tools</b><span>Post jobs and manage applicants.</span></div>
-                </div>
+      <section id="page-home" class="page">
+        <div class="hero">
+          <div>
+            <span class="eyebrow">YOUR NEXT OPPORTUNITY</span>
+            <h1>Find a job that fits your skills.</h1>
+            <p>
+              Discover jobs, match your skills, apply with your resume, and
+              track every application in one place.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#/jobs">Browse Jobs</a
+              ><a class="btn btn-light" href="#/register">Create Account</a>
             </div>
-        </section>
-        <section id="page-login" class="page hidden">
-            <div class="auth-wrap">
-                <div class="card auth-card">
-                    <div class="page-head">
-                        <h1>Welcome back</h1>
-                        <p>Sign in to continue to JobPortal.</p>
-                    </div>
-                    <form id="login-form" class="form"><label>AF ID or Email<input name="identifier"
-                                placeholder="AF05247867 or employee@example.com" autocomplete="username"
-                                required></label><label>Password<input name="password" type="password"
-                                autocomplete="current-password" required></label><button
-                            class="btn btn-primary btn-block">Login</button>
-                        <p class="form-note">Students use AF ID. Employees use email. Don't have an account? <a
-                                href="#/register">Create one</a></p>
-                    </form>
-                </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-stat">
+              <b>Smart matching</b
+              ><span>See how closely your skills match each job.</span>
             </div>
-        </section>
-        <section id="page-register" class="page hidden">
-            <div class="auth-wrap">
-                <div class="card auth-card wide">
-                    <div class="page-head">
-                        <h1>Create your account</h1>
-                        <p>Students register with an AF ID. Employees/job posters register with an email. The role is
-                            assigned automatically.</p>
-                    </div>
-                    <form id="register-form" class="form grid-form"><label class="full">Full Name<input name="name"
-                                required></label><label class="full">AF ID or Email<input name="identifier"
-                                placeholder="AF05247867 or employee@example.com" required></label><label>Phone<input
-                                name="phone" type="tel"></label><label>Password<input name="password" type="password"
-                                minlength="6" required></label><label class="full">Skills (students/job seekers)<input
-                                name="skills" placeholder="Java, Spring Boot, SQL, HTML"></label>
-                        <div class="form-note full role-hint"><b>Automatic role:</b> AF ID → Job Seeker &nbsp; | &nbsp;
-                            Email → Job Poster</div>
-                        <div class="form-actions full"><button class="btn btn-primary">Register</button><a
-                                class="btn btn-light" href="#/login">Already have an account</a></div>
-                    </form>
-                </div>
+            <div class="hero-stat">
+              <b>Easy applications</b
+              ><span>Upload a resume and apply in minutes.</span>
             </div>
+            <div class="hero-stat">
+              <b>Recruiter tools</b
+              ><span>Post jobs and manage applicants.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="page-login" class="page hidden">
+        <div class="auth-wrap">
+          <div class="card auth-card">
+            <div class="page-head">
+              <h1>Welcome back</h1>
+              <p>Sign in to continue to JobPortal.</p>
+            </div>
+            <form id="login-form" class="form">
+              <label
+                >AF ID or Email<input
+                  name="identifier"
+                  placeholder="AF05247867 or employee@example.com"
+                  autocomplete="username"
+                  required /></label
+              ><label
+                >Password<input
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required /></label
+              ><button class="btn btn-primary btn-block">Login</button>
+              <p class="form-note">
+                Students use AF ID. Employees use email. Don't have an account?
+                <a href="#/register">Create one</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section id="page-register" class="page hidden">
+        <div class="auth-wrap">
+          <div class="card auth-card wide">
+            <div class="page-head">
+              <h1>Create your account</h1>
+              <p>
+                Students register with an AF ID. Employees/job posters register
+                with an email. The role is assigned automatically.
+              </p>
+            </div>
+            <form id="register-form" class="form grid-form">
+              <label class="full">Full Name<input name="name" required /></label
+              ><label class="full"
+                >AF ID or Email<input
+                  name="identifier"
+                  placeholder="AF05247867 or employee@example.com"
+                  required /></label
+              ><label>Phone<input name="phone" type="tel" /></label
+              ><label
+                >Password<input
+                  name="password"
+                  type="password"
+                  minlength="6"
+                  required /></label
+              ><label class="full"
+                >Skills (students/job seekers)<input
+                  name="skills"
+                  placeholder="Java, Spring Boot, SQL, HTML"
+              /></label>
+              <div class="form-note full role-hint">
+                <b>Automatic role:</b> AF ID → Job Seeker &nbsp; | &nbsp; Email
+                → Job Poster
+              </div>
+              <div class="form-actions full">
+                <button class="btn btn-primary">Register</button
+                ><a class="btn btn-light" href="#/login"
+                  >Already have an account</a
+                >
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section id="page-jobs" class="page hidden">
+        <div class="page-head page-head-row">
+          <div>
+            <h1>Find Jobs</h1>
+            <p id="jobs-summary">Browse the latest opportunities.</p>
+          </div>
+          <a class="btn btn-primary recruiter-only" href="#/post-job"
+            >+ Post Job</a
+          >
+        </div>
+        <section class="card filters">
+          <form id="filter-form" class="filter-grid">
+            <input
+              name="search"
+              placeholder="Search title, company or skill"
+            /><input name="location" placeholder="Location" /><select
+              name="type"
+            >
+              <option value="">All job types</option>
+              <option value="full-time">Full-time</option>
+              <option value="part-time">Part-time</option>
+              <option value="internship">Internship</option>
+              <option value="remote">Remote</option>
+              <option value="contract">Contract</option></select
+            ><button class="btn btn-primary">Search</button>
+          </form>
         </section>
-        <section id="page-jobs" class="page hidden">
-            <div class="page-head page-head-row">
+        <div id="job-list" class="job-list">
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+          <article class="card job-card hidden" data-job-slot>
+            <div>
+              <h3 data-job-title></h3>
+              <p data-job-company></p>
+              <div class="chips">
+                <span class="chip" data-job-skill-1></span
+                ><span class="chip" data-job-skill-2></span
+                ><span class="chip" data-job-skill-3></span
+                ><span class="chip" data-job-skill-4></span>
+              </div>
+              <div class="job-bottom">
+                <small data-job-date></small
+                ><span class="score" data-job-score
+                  ><b></b><small>skill match</small></span
+                >
+              </div>
+            </div>
+            <div>
+              <p data-job-meta></p>
+              <a class="btn btn-primary btn-small" data-job-link
+                >View Details</a
+              >
+            </div>
+          </article>
+        </div>
+        <div class="pager">
+          <button id="jobs-prev" class="btn btn-light btn-small">
+            Previous</button
+          ><span id="jobs-page">Page 1</span
+          ><button id="jobs-next" class="btn btn-light btn-small">Next</button>
+        </div>
+      </section>
+      <section id="page-job-detail" class="page hidden">
+        <div class="back"><a href="#/jobs">← Back to Jobs</a></div>
+        <div class="detail-grid">
+          <div>
+            <section class="card">
+              <div class="detail-head">
                 <div>
-                    <h1>Find Jobs</h1>
-                    <p id="jobs-summary">Browse the latest opportunities.</p>
-                </div><a class="btn btn-primary recruiter-only" href="#/post-job">+ Post Job</a>
-            </div>
-            <section class="card filters">
-                <form id="filter-form" class="filter-grid"><input name="search"
-                        placeholder="Search title, company or skill"><input name="location"
-                        placeholder="Location"><select name="type">
-                        <option value="">All job types</option>
-                        <option value="full-time">Full-time</option>
-                        <option value="part-time">Part-time</option>
-                        <option value="internship">Internship</option>
-                        <option value="remote">Remote</option>
-                        <option value="contract">Contract</option>
-                    </select><button class="btn btn-primary">Search</button></form>
+                  <h1 id="detail-title">Job title</h1>
+                  <p id="detail-company"></p>
+                </div>
+                <div id="detail-score" class="score hidden">
+                  <b>0%</b><small>skill match</small>
+                </div>
+              </div>
+              <div class="meta pills">
+                <span id="detail-location"></span><span id="detail-type"></span
+                ><span id="detail-salary"></span
+                ><span id="detail-status"></span>
+              </div>
+              <h3>Job Description</h3>
+              <p id="detail-description" class="description"></p>
             </section>
-            <div id="job-list" class="job-list">
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-                <article class="card job-card hidden" data-job-slot>
-                    <div>
-                        <h3 data-job-title></h3>
-                        <p data-job-company></p>
-                        <div class="chips"><span class="chip" data-job-skill-1></span><span class="chip"
-                                data-job-skill-2></span><span class="chip" data-job-skill-3></span><span class="chip"
-                                data-job-skill-4></span></div>
-                        <div class="job-bottom"><small data-job-date></small><span class="score"
-                                data-job-score><b></b><small>skill match</small></span></div>
-                    </div>
-                    <div>
-                        <p data-job-meta></p><a class="btn btn-primary btn-small" data-job-link>View Details</a>
-                    </div>
-                </article>
-            </div>
-            <div class="pager"><button id="jobs-prev" class="btn btn-light btn-small">Previous</button><span
-                    id="jobs-page">Page 1</span><button id="jobs-next" class="btn btn-light btn-small">Next</button>
-            </div>
-        </section>
-        <section id="page-job-detail" class="page hidden">
-            <div class="back"><a href="#/jobs">← Back to Jobs</a></div>
-            <div class="detail-grid">
-                <div>
-                    <section class="card">
-                        <div class="detail-head">
-                            <div>
-                                <h1 id="detail-title">Job title</h1>
-                                <p id="detail-company"></p>
-                            </div>
-                            <div id="detail-score" class="score hidden"><b>0%</b><small>skill match</small></div>
-                        </div>
-                        <div class="meta pills"><span id="detail-location"></span><span id="detail-type"></span><span
-                                id="detail-salary"></span><span id="detail-status"></span></div>
-                        <h3>Job Description</h3>
-                        <p id="detail-description" class="description"></p>
-                    </section>
-                    <section class="card">
-                        <h3>Skills Required</h3>
-                        <div id="detail-skills" class="chips"><span class="chip hidden"
-                                data-detail-skill="0"></span><span class="chip hidden"
-                                data-detail-skill="1"></span><span class="chip hidden"
-                                data-detail-skill="2"></span><span class="chip hidden"
-                                data-detail-skill="3"></span><span class="chip hidden"
-                                data-detail-skill="4"></span><span class="chip hidden"
-                                data-detail-skill="5"></span><span class="chip hidden"
-                                data-detail-skill="6"></span><span class="chip hidden" data-detail-skill="7"></span>
-                        </div><small id="detail-skill-note" class="muted-text"></small>
-                    </section>
-                    <section id="apply-card" class="card hidden">
-                        <h2>Apply for this job</h2>
-                        <form id="apply-form" class="form"><label>Resume *<input id="resume" name="resume" type="file"
-                                    accept=".pdf,.doc,.docx" required></label><small>PDF, DOC, DOCX — max
-                                5MB</small><label>Cover Letter<textarea id="coverLetter" name="coverLetter"
-                                    rows="5"></textarea></label>
-                            <div class="form-actions"><button class="btn btn-primary">Submit Application</button><button
-                                    id="cancel-apply" type="button" class="btn btn-light">Cancel</button></div>
-                        </form>
-                    </section>
+            <section class="card">
+              <h3>Skills Required</h3>
+              <div id="detail-skills" class="chips">
+                <span class="chip hidden" data-detail-skill="0"></span
+                ><span class="chip hidden" data-detail-skill="1"></span
+                ><span class="chip hidden" data-detail-skill="2"></span
+                ><span class="chip hidden" data-detail-skill="3"></span
+                ><span class="chip hidden" data-detail-skill="4"></span
+                ><span class="chip hidden" data-detail-skill="5"></span
+                ><span class="chip hidden" data-detail-skill="6"></span
+                ><span class="chip hidden" data-detail-skill="7"></span>
+              </div>
+              <small id="detail-skill-note" class="muted-text"></small>
+            </section>
+            <section id="apply-card" class="card hidden">
+              <h2>Apply for this job</h2>
+              <form id="apply-form" class="form">
+                <label
+                  >Resume *<input
+                    id="resume"
+                    name="resume"
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    required /></label
+                ><small>PDF, DOC, DOCX — max 5MB</small
+                ><label
+                  >Cover Letter<textarea
+                    id="coverLetter"
+                    name="coverLetter"
+                    rows="5"
+                  ></textarea>
+                </label>
+                <div class="form-actions">
+                  <button class="btn btn-primary">Submit Application</button
+                  ><button
+                    id="cancel-apply"
+                    type="button"
+                    class="btn btn-light"
+                  >
+                    Cancel
+                  </button>
                 </div>
-                <aside>
-                    <section id="detail-action" class="card action-card">
-                        <p id="action-message"></p><a id="action-login" class="btn btn-primary" href="#/login">Login to
-                            Apply</a><button id="action-apply" class="btn btn-primary hidden" type="button">Apply
-                            Now</button><a id="action-applications" class="btn btn-light hidden"
-                            href="#/my-applications">View My Applications</a>
-                        <button id="detail-admin-delete" class="btn btn-danger hidden admin-only" type="button">Delete Job</button>
-                    </section>
-                    <section class="card">
-                        <h3>About the Recruiter</h3>
-                        <p id="recruiter-company"></p>
-                        <p id="recruiter-name"></p>
-                        <p id="recruiter-email"></p>
-                    </section>
-                    <section class="card">
-                        <h3>Job Info</h3>
-                        <div class="info-list">
-                            <div><span>Posted</span><b id="info-posted"></b></div>
-                            <div><span>Type</span><b id="info-type"></b></div>
-                            <div><span>Salary</span><b id="info-salary"></b></div>
-                            <div><span>Location</span><b id="info-location"></b></div>
-                        </div>
-                    </section>
-                </aside>
+              </form>
+            </section>
+          </div>
+          <aside>
+            <section id="detail-action" class="card action-card">
+              <p id="action-message"></p>
+              <a id="action-login" class="btn btn-primary" href="#/login"
+                >Login to Apply</a
+              ><button
+                id="action-apply"
+                class="btn btn-primary hidden"
+                type="button"
+              >
+                Apply Now</button
+              ><a
+                id="action-applications"
+                class="btn btn-light hidden"
+                href="#/my-applications"
+                >View My Applications</a
+              >
+              <button
+                id="detail-admin-delete"
+                class="btn btn-danger hidden admin-only"
+                type="button"
+              >
+                Delete Job
+              </button>
+            </section>
+            <section class="card">
+              <h3>About the Recruiter</h3>
+              <p id="recruiter-company"></p>
+              <p id="recruiter-name"></p>
+              <p id="recruiter-email"></p>
+            </section>
+            <section class="card">
+              <h3>Job Info</h3>
+              <div class="info-list">
+                <div><span>Posted</span><b id="info-posted"></b></div>
+                <div><span>Type</span><b id="info-type"></b></div>
+                <div><span>Salary</span><b id="info-salary"></b></div>
+                <div><span>Location</span><b id="info-location"></b></div>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </section>
+      <section id="page-my-applications" class="page hidden">
+        <div class="page-head">
+          <h1>My Applications</h1>
+          <p id="applications-summary"></p>
+        </div>
+        <div id="applications-list" class="stack">
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
             </div>
-        </section>
-        <section id="page-my-applications" class="page hidden">
-            <div class="page-head">
-                <h1>My Applications</h1>
-                <p id="applications-summary"></p>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
             </div>
-            <div id="applications-list" class="stack">
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
-                <article class="card application-row hidden" data-app-slot>
-                    <div>
-                        <h3 data-app-title></h3>
-                        <p data-app-company></p>
-                        <p data-app-location></p>
-                    </div>
-                    <div><span class="match" data-app-match></span><span class="status" data-app-status></span><button
-                            class="btn btn-danger btn-small" data-app-withdraw>Withdraw</button></div>
-                </article>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
             </div>
-        </section>
-        <section id="page-post-job" class="page hidden">
-            <div class="narrow">
-                <div class="page-head">
-                    <h1>Post a New Job</h1>
-                    <p>Fill in the details to attract the right candidates.</p>
-                </div>
-                <section class="card">
-                    <form id="post-job-form" class="form grid-form"><label class="full">Job Title *<input name="title"
-                                required></label><label>Company Name *<input name="company"
-                                required></label><label>Location *<input name="location" required></label><label>Job
-                            Type *<select name="type">
-                                <option value="full-time">Full-time</option>
-                                <option value="part-time">Part-time</option>
-                                <option value="internship">Internship</option>
-                                <option value="remote">Remote</option>
-                                <option value="contract">Contract</option>
-                            </select></label><label>Salary<input name="salary"></label><label class="full">Description
-                            *<textarea name="description" rows="7" required></textarea></label><label
-                            class="full">Required Skills *<input name="skillsRequired"
-                                placeholder="Java, Spring Boot, SQL" required></label>
-                        <div class="form-actions full"><button class="btn btn-primary">Post Job</button><a
-                                class="btn btn-light" href="#/my-jobs">Cancel</a></div>
-                    </form>
-                </section>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
             </div>
-        </section>
-        <section id="page-my-jobs" class="page hidden">
-            <div class="page-head page-head-row">
-                <div>
-                    <h1>My Job Listings</h1>
-                    <p id="my-jobs-summary"></p>
-                </div><a class="btn btn-primary" href="#/post-job">+ Post New Job</a>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
             </div>
-            <div id="my-jobs-list" class="stack">
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
-                <article class="card job-row hidden" data-myjob-slot>
-                    <div>
-                        <h3 data-myjob-title></h3>
-                        <p data-myjob-meta></p>
-                        <div class="chips"><span class="chip" data-myjob-skill-1></span><span class="chip"
-                                data-myjob-skill-2></span><span class="chip" data-myjob-skill-3></span><span
-                                class="chip" data-myjob-skill-4></span><span class="chip" data-myjob-skill-5></span>
-                        </div><small data-myjob-date></small>
-                    </div>
-                    <div class="actions"><a class="btn btn-light btn-small" data-myjob-view>View</a><a
-                            class="btn btn-light btn-small" data-myjob-applicants>Applicants</a><button
-                            class="btn btn-light btn-small" data-myjob-toggle>Close</button><button
-                            class="btn btn-danger btn-small" data-myjob-delete>Delete</button></div>
-                </article>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
             </div>
-        </section>
-        <section id="page-applicants" class="page hidden">
-            <div class="page-head">
-                <h1 id="applicants-title">Applicants</h1>
-                <p id="applicants-summary"></p>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
             </div>
-            <div id="applicants-list" class="stack">
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
-                <article class="card applicant-row hidden" data-applicant-slot>
-                    <div>
-                        <h3 data-applicant-name></h3>
-                        <p data-applicant-email></p>
-                        <p data-applicant-phone></p>
-                        <p data-applicant-skills></p>
-                    </div>
-                    <div><span class="match" data-applicant-match></span><span class="status"
-                            data-applicant-status></span><select data-applicant-status-select>
-                            <option value="applied">Applied</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="hired">Hired</option>
-                        </select><a class="btn btn-light btn-small" data-applicant-resume target="_blank">Resume</a>
-                    </div>
-                </article>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
             </div>
-        </section>
-        <section id="page-dashboard" class="page hidden">
-            <div class="page-head">
-                <h1 id="dashboard-title">Dashboard</h1>
-                <p id="dashboard-subtitle"></p>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
             </div>
-            <div id="dashboard-cards" class="dashboard-grid"><a class="card dash-card jobseeker-only"
-                    href="#/jobs"><b>Find Jobs</b><span>Browse and apply to active jobs.</span></a><a
-                    class="card dash-card jobseeker-only" href="#/my-applications"><b>My Applications</b><span>Track
-                        your application status.</span></a><a class="card dash-card recruiter-only"
-                    href="#/post-job"><b>Post Job</b><span>Create a new vacancy.</span></a><a
-                    class="card dash-card recruiter-only" href="#/my-jobs"><b>My Jobs</b><span>Manage your job listings
-                        and applicants.</span></a><a class="card dash-card admin-only" href="#/admin/users"><b>Manage
-                        Users</b><span>View, change roles and remove users.</span></a></div>
-            <div id="admin-stats" class="dashboard-stats admin-only">
-                <div class="card stat-card"><b data-stat="users">0</b><span>Total Users</span></div>
-                <div class="card stat-card"><b data-stat="students">0</b><span>Job Seekers</span></div>
-                <div class="card stat-card"><b data-stat="recruiters">0</b><span>Job Posters</span></div>
-                <div class="card stat-card"><b data-stat="jobs">0</b><span>Jobs</span></div>
-                <div class="card stat-card"><b data-stat="applications">0</b><span>Applications</span></div>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
             </div>
-        </section>
-        <section id="page-admin-users" class="page hidden">
-            <div class="page-head page-head-row">
-                <div>
-                    <h1>Manage Users</h1>
-                    <p id="admin-users-summary">All registered users.</p>
-                </div><a class="btn btn-light" href="#/dashboard">Back to Dashboard</a>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
             </div>
-            <div class="card filters"><label>Search users<input id="admin-user-search"
-                        placeholder="Name, AF ID, email or role"></label></div>
-            <div id="admin-user-list" class="user-list">
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
-                <article class="card user-row hidden" data-admin-user-slot>
-                    <div>
-                        <h3 data-admin-user-name></h3>
-                        <p data-admin-user-login></p>
-                        <p data-admin-user-email></p><small data-admin-user-meta></small>
-                    </div>
-                    <div class="user-actions"><select data-admin-user-role>
-                            <option value="jobseeker">Job Seeker</option>
-                            <option value="recruiter">Job Poster</option>
-                            <option value="admin">Admin</option>
-                        </select><button class="btn btn-danger btn-small" data-admin-user-delete>Delete</button></div>
-                </article>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
             </div>
-        </section>
-        <section id="page-error" class="page hidden">
-            <div class="empty">
-                <h2>Page not found</h2><a class="btn btn-primary" href="#/">Go Home</a>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
             </div>
-        </section>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
+            </div>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
+            </div>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
+            </div>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
+            </div>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
+            </div>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
+            </div>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
+            </div>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
+            </div>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
+            </div>
+          </article>
+          <article class="card application-row hidden" data-app-slot>
+            <div>
+              <h3 data-app-title></h3>
+              <p data-app-company></p>
+              <p data-app-location></p>
+            </div>
+            <div>
+              <span class="match" data-app-match></span
+              ><span class="status" data-app-status></span
+              ><button class="btn btn-danger btn-small" data-app-withdraw>
+                Withdraw
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section id="page-post-job" class="page hidden">
+        <div class="narrow">
+          <div class="page-head">
+            <h1>Post a New Job</h1>
+            <p>Fill in the details to attract the right candidates.</p>
+          </div>
+          <section class="card">
+            <form id="post-job-form" class="form grid-form">
+              <label class="full"
+                >Job Title *<input name="title" required /></label
+              ><label>Company Name *<input name="company" required /></label
+              ><label>Location *<input name="location" required /></label
+              ><label
+                >Job Type *<select name="type">
+                  <option value="full-time">Full-time</option>
+                  <option value="part-time">Part-time</option>
+                  <option value="internship">Internship</option>
+                  <option value="remote">Remote</option>
+                  <option value="contract">Contract</option>
+                </select></label
+              ><label>Salary<input name="salary" /></label
+              ><label class="full"
+                >Description *<textarea
+                  name="description"
+                  rows="7"
+                  required
+                ></textarea></label
+              ><label class="full"
+                >Required Skills *<input
+                  name="skillsRequired"
+                  placeholder="Java, Spring Boot, SQL"
+                  required
+              /></label>
+              <div class="form-actions full">
+                <button class="btn btn-primary">Post Job</button
+                ><a class="btn btn-light" href="#/my-jobs">Cancel</a>
+              </div>
+            </form>
+          </section>
+        </div>
+      </section>
+      <section id="page-my-jobs" class="page hidden">
+        <div class="page-head page-head-row">
+          <div>
+            <h1>My Job Listings</h1>
+            <p id="my-jobs-summary"></p>
+          </div>
+          <a class="btn btn-primary" href="#/post-job">+ Post New Job</a>
+        </div>
+        <div id="my-jobs-list" class="stack">
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card job-row hidden" data-myjob-slot>
+            <div>
+              <h3 data-myjob-title></h3>
+              <p data-myjob-meta></p>
+              <div class="chips">
+                <span class="chip" data-myjob-skill-1></span
+                ><span class="chip" data-myjob-skill-2></span
+                ><span class="chip" data-myjob-skill-3></span
+                ><span class="chip" data-myjob-skill-4></span
+                ><span class="chip" data-myjob-skill-5></span>
+              </div>
+              <small data-myjob-date></small>
+            </div>
+            <div class="actions">
+              <a class="btn btn-light btn-small" data-myjob-view>View</a
+              ><a class="btn btn-light btn-small" data-myjob-applicants
+                >Applicants</a
+              ><button class="btn btn-light btn-small" data-myjob-toggle>
+                Close</button
+              ><button class="btn btn-danger btn-small" data-myjob-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section id="page-applicants" class="page hidden">
+        <div class="page-head">
+          <h1 id="applicants-title">Applicants</h1>
+          <p id="applicants-summary"></p>
+        </div>
+        <div id="applicants-list" class="stack">
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+          <article class="card applicant-row hidden" data-applicant-slot>
+            <div>
+              <h3 data-applicant-name></h3>
+              <p data-applicant-email></p>
+              <p data-applicant-phone></p>
+              <p data-applicant-skills></p>
+            </div>
+            <div>
+              <span class="match" data-applicant-match></span
+              ><span class="status" data-applicant-status></span
+              ><select data-applicant-status-select>
+                <option value="applied">Applied</option>
+                <option value="reviewed">Reviewed</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="rejected">Rejected</option>
+                <option value="hired">Hired</option></select
+              ><a
+                class="btn btn-light btn-small"
+                data-applicant-resume
+                target="_blank"
+                >Resume</a
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+      <section id="page-dashboard" class="page hidden">
+        <div class="page-head">
+          <h1 id="dashboard-title">Dashboard</h1>
+          <p id="dashboard-subtitle"></p>
+        </div>
+        <div id="dashboard-cards" class="dashboard-grid">
+          <a class="card dash-card jobseeker-only" href="#/jobs"
+            ><b>Find Jobs</b><span>Browse and apply to active jobs.</span></a
+          ><a class="card dash-card jobseeker-only" href="#/my-applications"
+            ><b>My Applications</b
+            ><span>Track your application status.</span></a
+          ><a class="card dash-card recruiter-only" href="#/post-job"
+            ><b>Post Job</b><span>Create a new vacancy.</span></a
+          ><a class="card dash-card recruiter-only" href="#/my-jobs"
+            ><b>My Jobs</b
+            ><span>Manage your job listings and applicants.</span></a
+          ><a class="card dash-card admin-only" href="#/admin/users"
+            ><b>Manage Users</b
+            ><span>View, change roles and remove users.</span></a
+          >
+        </div>
+        <div id="admin-stats" class="dashboard-stats admin-only">
+          <div class="card stat-card">
+            <b data-stat="users">0</b><span>Total Users</span>
+          </div>
+          <div class="card stat-card">
+            <b data-stat="students">0</b><span>Job Seekers</span>
+          </div>
+          <div class="card stat-card">
+            <b data-stat="recruiters">0</b><span>Job Posters</span>
+          </div>
+          <div class="card stat-card">
+            <b data-stat="jobs">0</b><span>Jobs</span>
+          </div>
+          <div class="card stat-card">
+            <b data-stat="applications">0</b><span>Applications</span>
+          </div>
+        </div>
+      </section>
+      <section id="page-admin-users" class="page hidden">
+        <div class="page-head page-head-row">
+          <div>
+            <h1>Manage Users</h1>
+            <p id="admin-users-summary">All registered users.</p>
+          </div>
+          <a class="btn btn-light" href="#/dashboard">Back to Dashboard</a>
+        </div>
+        <div class="card filters">
+          <label
+            >Search users<input
+              id="admin-user-search"
+              placeholder="Name, AF ID, email or role"
+          /></label>
+        </div>
+        <div id="admin-user-list" class="user-list">
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+          <article class="card user-row hidden" data-admin-user-slot>
+            <div>
+              <h3 data-admin-user-name></h3>
+              <p data-admin-user-login></p>
+              <p data-admin-user-email></p>
+              <small data-admin-user-meta></small>
+            </div>
+            <div class="user-actions">
+              <select data-admin-user-role>
+                <option value="jobseeker">Job Seeker</option>
+                <option value="recruiter">Job Poster</option>
+                <option value="admin">Admin</option></select
+              ><button class="btn btn-danger btn-small" data-admin-user-delete>
+                Delete
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section id="page-error" class="page hidden">
+        <div class="empty">
+          <h2>Page not found</h2>
+          <a class="btn btn-primary" href="#/">Go Home</a>
+        </div>
+      </section>
     </main>
     <footer class="footer">
-        <div class="container"><span>JobPortal</span><span>MongoDB + Express + HTML + CSS + JavaScript</span></div>
+      <div class="container">
+        <span>JobPortal</span
+        ><span>MongoDB + Express + HTML + CSS + JavaScript</span>
+      </div>
     </footer>
-    <script src="js/api.js"></script>
+    <!-- <script src="js/api.js"></script> -->
     <script src="js/app.js"></script>
-</body>
-
+  </body>
 </html>
