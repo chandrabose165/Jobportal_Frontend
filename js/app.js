@@ -107,6 +107,6 @@ function showpages(pageName) {
     show(page, page.id === "page-" + pageName);
   });
 }
-async function rebder() {
+async function render() {
   const route = getRoute();
 }
