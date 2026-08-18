@@ -100,11 +100,11 @@ function formDate(value) {
 // showing the page function
 const pages = document.querySelectorAll(".page");
 function getRoute() {
-  return location.hash.replace("/^#/", "") || "/";
+  return location.hash.replace("/^#\//", "") || "/";
 }
 function showpages(pageName) {
   pages.forEach(() => {
-    show(page, page.id === "page-" + pageName);
+    show("page", page.id === "page-" + pageName);
   });
 }
 async function render() {
