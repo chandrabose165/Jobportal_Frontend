@@ -9,6 +9,7 @@
 // hideButtons(".jobseeker-only");
 // hideButtons(".admin-only");
 // hideButtons(".recruiter-only");
+"use strict";
 function get(id) {
   return document.getElementById(id);
 }
@@ -160,23 +161,3 @@ async function render() {
 }
 
 window.addEventListener("hashchange", render);
-
-// save the user to the localstorage
-// get the user from the localstorage
-
-function getUser() {
-  try {
-    return JSON.parse(localStorage.getItem("jobportal-user")) || null;
-  } catch (error) {
-    // toast("user not found", true);
-    return null;
-  }
-}
-
-function SetUser(user) {
-  if (user) {
-    localStorage.setItem("jobportal-user", JSON.stringify(user.token));
-  } else {
-    localStorage.removeItem("jobportal-user");
-  }
-}
