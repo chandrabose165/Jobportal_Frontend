@@ -1,112 +1,148 @@
-"use strict";
-// function hidden(classname) {
-//   document.querySelectorAll(classname).forEach((btn) => {
-//     btn.style.display = "none";
-//   });
-// }
-// hidden(".jobseeker-only");
-// hidden(".recruiter-only");
-// hidden(".admin-only");
+// "use strict";
+// console.log(document);
 
-// UI Mainuplication
-function getId(id) {
+// function hideButtons(classname){
+//     document.querySelectorAll(classname).forEach((btn) => {
+//         btn.style.display = "none";
+//     });
+// }
+// hideButtons(".jobseeker-only");
+// hideButtons(".admin-only");
+// hideButtons(".recruiter-only");
+
+"use strict";
+function get(id) {
   return document.getElementById(id);
 }
-// getting the classname
-function getClassName(className) {
-  return document.getElementsByClassName(ClassName);
-}
-// updating the class name
-function settext(element, value) {
-  if (!element) return;
-  element.textContent =
-    value === null || value === undefined ? "" : String(value);
-}
-// get value
-function getall(element) {
-  if (!element) return;
-  element.textContent = value;
-}
-// Hidding the some button we want
-function hide(element, Visible = true) {
-  element.ClassList.toogle("hidden", !Visible);
-}
-// add the class without creation in html
-function addclass(element, ClassName) {
-  if (!element) return;
-  element.ClassList.add(ClassName);
-}
-// Remove the className
-function RemoveClass(element, ClassName) {
-  if (!element) return;
-  element.ClassList.remove(ClassName);
-}
-// access the element
-function GetValue(element) {
-  if (!element) return;
-  // return element.value;
-  return element?.value?.trim(); //  same like 47 line code
-}
-function SetValue(element, Value) {
-  if (!element) return;
-  // element.value = value === null || value === undefined ? "" : String(value);
-  element.value = value ?? ""; //  same as like about 52 line code
+
+function getall(className) {
+  return document.getElementsByClassName(className);
 }
 
-// toogle transtion and pop the window of the appliaction the bottom right side
-function toast(message, error = false) {
-  const element = getId("toast");
+function setText(element, value) {
   if (!element) return;
-  settext(element, message);
+  element.textcontent =
+    value === null || value === undefined ? "" : String(value);
+  // element.textcontent = value !===null || value !== undefined ? String(value);
+}
+
+function show(element, visible = true) {
+  if (!element) return;
+  element.classList.toggle("hidden", !visible);
+}
+
+function addclass(element, className) {
+  if (!element) return;
+  element.classlist.add(className);
+}
+
+function removeclass(element, className) {
+  if (!element) return;
+  element.classlist.remove(className);
+}
+
+function toggleclass(element, className) {
+  if (!element) return;
+  element.classlist.toggle(className);
+}
+
+function getvalue(element) {
+  if (!element) return;
+  // return element.value;
+  return element?.value?.trim();
+}
+
+function setvalue(element, value) {
+  if (!element) return;
+  // element.value = value === null || value === undefined ? "" : String(value);
+  element.value = value ?? "";
+}
+
+// 1.Start
+
+function toast(message, error = false) {
+  const element = get("toast");
+  if (!element) return;
+  setText(element, message);
   element.className = "toast toast.show toast." + (error ? "error" : "");
 
   clearTimeout(window.toastTimer);
   window.toastTimer = setTimeout(() => {
     element.className = "toast";
   }, 3000);
+
+  // console.log(element);
 }
-// checking the status of the application
-function SetStatus(element, status) {
+// toast("Login successfull");
+
+function setStatus(element, status) {
   if (!element) return;
   element.className = "status";
   if (status) {
-    element.ClassList.add("Status-" + status);
+    element.classlist.add("status-" + status);
   }
-  settext(element, status || "");
+  setText(element.status || "");
 }
-// match score of the applications
+
 function setMatchScore(element, score) {
   if (!element) return;
-  element.ClassList.remove("match-good", "match-mid", "match-low");
+  element.classlist.remove("match-good", "match-mid", "match-low");
   if (score >= 70) {
-    element.ClassList.add("match-good");
+    element.classlist.add("match-good");
   } else if (score >= 40) {
-    element.ClassList.add("match-mid");
+    element.classlist.add("match-mid");
   } else {
-    element.ClassList.add("match-low");
+    element.classlist.add("match-low");
   }
 }
-//  formdate the like update , delete the file or any thing
 
-function formDate(value) {
+function formateDate(value) {
   if (!value) return;
   return new Date(value).toLocaleDateString("en-IN", {
     day: "numeric",
-    month: "long",
+    month: "short",
     year: "numeric",
   });
 }
 
-// showing the page function
+//2. End
+
+// 3.start
+//routing react router || redux
+
 const pages = document.querySelectorAll(".page");
+
 function getRoute() {
-  return location.hash.replace("/^#\//", "") || "/";
+  return location.hash.replace(/^#/, "") || "/";
 }
-function showpages(pageName) {
-  pages.forEach(() => {
-    show("page", page.id === "page-" + pageName);
+
+function showPages(pageName) {
+  pages.forEach((page) => {
+    show(page, page.id === "page-" + pageName);
   });
 }
+
 async function render() {
   const route = getRoute();
+  console.log(route);
+  if (route === "/" || route === "home") {
+    showPages("home");
+    return;
+  }
+
+  if (route === "/login") {
+    showPages("login");
+    return;
+  }
+
+  if (route === "/register") {
+    showPages("register");
+    return;
+  }
+  if (route === "/jobs") {
+    showPages("jobs");
+    return;
+  }
 }
+
+window.addEventListener("hashchange", render);
