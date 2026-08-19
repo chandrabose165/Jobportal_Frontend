@@ -35,7 +35,7 @@ textarea {
 }
 
 .hidden {
-    display: none !important
+    display: none !important;
 }
 
 .container {
@@ -48,7 +48,7 @@ textarea {
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    z-index: 10
+    z-index: 10;
 }
 
 .nav {
