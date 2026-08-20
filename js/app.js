@@ -1,4 +1,4 @@
-// "use strict";
+"use strict";
 // console.log(document);
 
 // function hideButtons(classname){
@@ -73,6 +73,9 @@ function toast(message, error = false) {
 }
 // toast("Login successfull");
 
+// part 1 end
+
+// part 2 start
 function setStatus(element, status) {
   if (!element) return;
   element.className = "status";
@@ -103,9 +106,9 @@ function formateDate(value) {
   });
 }
 
-//2. End
+// part 2. End
 
-// 3.start
+// part 3.start
 //routing react router || redux
 
 const pages = document.querySelectorAll(".page");
@@ -137,8 +140,8 @@ async function render() {
     showPages("register");
     return;
   }
-  if (route === "/findjobs") {
-    showPages("findjobs");
+  if (route === "/jobs") {
+    showPages("jobs");
     return;
   }
   if (route === "/my-applications") {
@@ -180,5 +183,81 @@ function SetUser(user) {
     localStorage.removeItem("jobportal-user");
   }
 }
+// part 4
+function getToken() {
+  return getUser()?.token || "";
+}
+function isLoggedIn() {
+  return !!getUser();
+}
+function requiredLogin() {
+  if (!isLoggedIn()) {
+    location.hash = "#/login";
+    toast("please login first", true);
+    return false;
+  }
+  return true;
+}
 
-//
+// required the role to specific
+
+function requiredRole(role) {
+  const user = getUser();
+  if (!user) {
+    location.hash = "#login";
+    toast("please login First", true);
+    return false;
+  }
+  if (user.role !== role) {
+    location.hash = "#/";
+    toast("you don't have access to this page", true);
+    return false;
+  }
+  return true;
+}
+// part no 5
+// name , email , phone ,  password , skills , role
+
+function setupRegister() {
+  const form = get("register-form");
+  if (!form) return;
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    // console.log("testing code");
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      console.log(data);
+      const user = await API.post("/auth/register", data);
+      SetUser(user);
+      toast("Account created successfully");
+      form.reset();
+      location.hash = "#/dashboard";
+    } catch (error) {
+      toast(error.message, true);
+    }
+  });
+}
+
+// login form
+
+function setupLogin() {
+  const form = get("login-form");
+  if (!form) return;
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    // console.log("testing code");
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      console.log(data);
+      const user = await API.post("/auth/login", data);
+      SetUser(user);
+      toast("Login successfully");
+      form.reset();
+      location.hash = "#/dashboard";
+    } catch (error) {
+      toast(error.message, true);
+    }
+  });
+}
+setupRegister();
+setupLogin();
