@@ -172,7 +172,7 @@ function getUser() {
     return null;
   }
 }
-
+// localStorage
 function SetUser(user) {
   if (user) {
     localStorage.setItem("jobportal-user", JSON.stringify(user.token));
@@ -180,3 +180,5 @@ function SetUser(user) {
     localStorage.removeItem("jobportal-user");
   }
 }
+
+//
