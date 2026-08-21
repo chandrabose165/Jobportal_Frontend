@@ -261,3 +261,7 @@ function setupLogin() {
 }
 // setupRegister();
 // setupLogin();
+
+// part - 6 start
+
+// part -6 end
