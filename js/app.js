@@ -259,5 +259,5 @@ function setupLogin() {
     }
   });
 }
-setupRegister();
-setupLogin();
+// setupRegister();
+// setupLogin();
